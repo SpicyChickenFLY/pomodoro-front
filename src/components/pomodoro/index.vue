@@ -4,6 +4,7 @@
       <pomodoro v-if="activeTab === '专注'" />
     </el-tab-pane>
     <el-tab-pane label="计划" name="计划">
+      <plan v-if="activeTab === '计划'" />
     </el-tab-pane>
     <el-tab-pane label="活动" name="活动">
       <task v-if="activeTab === '活动'" />
@@ -17,6 +18,7 @@
 import { defineProps, ref, reactive, onMounted, onBeforeMount } from "vue";
 import Task from "./task.vue";
 import Pomodoro from "./pomodoro.vue";
+import Plan from "./plan.vue";
 const activeTab = ref("活动");
 
 </script>

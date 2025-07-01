@@ -15,4 +15,3 @@ app.directive('highlight', function (el) {
 app.use(hljs.vuePlugin) 
 app.use(ElementPlus)
 app.mount('#app')
-

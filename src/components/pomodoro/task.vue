@@ -13,24 +13,7 @@
       </el-table-column>
       <el-table-column label="专注情况">
         <template #default="{ row }">
-        <el-rate
-          v-model="row.estimatePomodoro1st"
-          :max="row.estimatePomodoro1st"
-          :icons="ChatRound"
-          :void-icon="ChatRound"
-        />
-        <el-rate
-          v-model="row.estimatePomodoro2rd"
-          :max="row.estimatePomodoro2rd"
-          :icons="ChatRound"
-          :void-icon="ChatRound"
-        />
-        <el-rate
-          v-model="row.estimatePomodoro3nd"
-          :max="row.estimatePomodoro3nd"
-          :icons="ChatRound"
-          :void-icon="ChatRound"
-        />
+              <el-icon v-for="x in row.estimatePomodoroCnt1st"><Apple /></el-icon>
         </template>
       </el-table-column>
     </el-table>
@@ -51,11 +34,12 @@ import {
 import axios from "axios";
 import moment from "moment";
 import { ElNotification, ElLoading, ElMessageBox } from "element-plus";
-import { ChatRound } from "@element-plus/icons-vue";
+import { ChatRound, Apple } from "@element-plus/icons-vue";
 
 const timer = reactive(null);
 
 const taskListData = ref([]);
+const num = ref();
 
 onMounted(async () => {
   refresh();

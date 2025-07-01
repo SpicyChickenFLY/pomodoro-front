@@ -1,5 +1,14 @@
 import axios from "axios";
 
+const getTaskInfo = async () => {
+  axios
+    .get("/api/tasks")
+    .then((res) => {
+      taskListData.value = res.data;
+    })
+    .catch((error) => onError("获取管理器信息失败", error));
+};
+
 const getMgrInfo = async () => {
   axios
     .get("/api/mgr")
