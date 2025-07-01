@@ -6,11 +6,6 @@
       border
       style="width: 100%"
     >
-      <el-table-column label="ID">
-        <template #default="{ row }">
-          {{ row.id }}
-        </template>
-      </el-table-column>
       <el-table-column label="内容">
         <template #default="{ row }">
           {{ row.title }}
@@ -18,9 +13,7 @@
       </el-table-column>
       <el-table-column label="专注情况">
         <template #default="{ row }">
-          <span v-for="i in row.estimatePomodoroCnt1st" :key="i">
-            <el-icon><Apple /></el-icon>
-          </span>
+              <el-icon v-for="x in row.estimatePomodoroCnt1st"><Apple /></el-icon>
         </template>
       </el-table-column>
     </el-table>
