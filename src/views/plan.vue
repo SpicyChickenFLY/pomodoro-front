@@ -1,19 +1,46 @@
 <template>
   <div>
-    <el-table
-      :data="taskListData"
-      size="small"
-      border
-      style="width: 100%"
+    <el-date-picker></el-date-picker>
+    <el-button type="success" :icon="Plus" @click="addTask"
+      >制定今日计划</el-button
     >
-      <el-table-column label="内容">
+    <el-divider>今日计划</el-divider>
+    <el-table :data="taskListData" >
+      <el-table-column>
         <template #default="{ row }">
-          {{ row.title }}
+          <el-text>{{ row.title }}</el-text>
         </template>
       </el-table-column>
-      <el-table-column label="专注情况">
+      <el-table-column>
         <template #default="{ row }">
-              <el-icon v-for="x in row.estimatePomodoroCnt1st"><Apple /></el-icon>
+          <el-text v-for="i in row.estimatePomodoroCnt1st" :key="i">
+            <el-icon><Star /></el-icon>
+          </el-text>
+        </template>
+      </el-table-column>
+      <el-table-column>
+        <template #default="{ row }">
+          <el-button>开始专注</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-divider>计划外紧急</el-divider>
+    <el-table :data="taskListData" >
+      <el-table-column>
+        <template #default="{ row }">
+          <el-text>{{ row.title }}</el-text>
+        </template>
+      </el-table-column>
+      <el-table-column>
+        <template #default="{ row }">
+          <el-text v-for="i in row.estimatePomodoroCnt1st" :key="i">
+            <el-icon><Star /></el-icon>
+          </el-text>
+        </template>
+      </el-table-column>
+      <el-table-column>
+        <template #default="{ row }">
+          <el-button>开始专注</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -34,7 +61,7 @@ import {
 import axios from "axios";
 import moment from "moment";
 import { ElNotification, ElLoading, ElMessageBox } from "element-plus";
-import { ChatRound, Apple } from "@element-plus/icons-vue";
+import { Star } from "@element-plus/icons-vue";
 
 const timer = reactive(null);
 

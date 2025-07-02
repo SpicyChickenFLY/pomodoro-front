@@ -16,7 +16,7 @@
 
 <script setup>
 import { defineProps, ref, reactive, onMounted, onBeforeMount } from "vue";
-import Task from "./task.vue";
+import Task from "./task/index.vue";
 import Pomodoro from "./pomodoro.vue";
 import Plan from "./plan.vue";
 const activeTab = ref("活动");

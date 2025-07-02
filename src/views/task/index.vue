@@ -1,30 +1,15 @@
 <template>
   <div>
-    <el-table
-      :data="taskListData"
-      size="small"
-      border
-      style="width: 100%"
+    <el-button type="success" :icon="Plus" @click="addTask"
+      >新建待办活动</el-button
     >
-      <el-table-column label="ID">
-        <template #default="{ row }">
-          {{ row.id }}
-        </template>
-      </el-table-column>
-      <el-table-column label="内容">
-        <template #default="{ row }">
-          {{ row.title }}
-        </template>
-      </el-table-column>
-      <el-table-column label="专注情况">
-        <template #default="{ row }">
-          <span v-for="i in row.estimatePomodoroCnt1st" :key="i">
-            <el-icon><Apple /></el-icon>
-          </span>
-        </template>
-      </el-table-column>
-    </el-table>
-
+    <el-card v-for="row in taskListData" :key="row.id" :body-style='{ "text-align": "left" }'>
+      <el-text>{{ row.title }}</el-text>
+      <el-text v-for="i in row.estimatePomodoroCnt1st" :key="i">
+        <el-icon><Star /></el-icon>
+      </el-text>
+    </el-card>
+    <Add :visible="addTaskVisible" />
   </div>
 </template>
 
@@ -41,11 +26,14 @@ import {
 import axios from "axios";
 import moment from "moment";
 import { ElNotification, ElLoading, ElMessageBox } from "element-plus";
-import { ChatRound, Apple } from "@element-plus/icons-vue";
+import { Star, Plus } from "@element-plus/icons-vue";
+import Add from "./add.vue";
+import { getTaskList } from "@/api/tasks.ts";
 
 const timer = reactive(null);
 
 const taskListData = ref([]);
+const addTaskVisible = ref(false);
 const num = ref();
 
 onMounted(async () => {
@@ -66,14 +54,16 @@ const onError = async (msg, error) => {
 const refresh = async () => getTaskInfo();
 
 const getTaskInfo = async () => {
-  axios
-    .get("/api/tasks")
+  getTaskList()
     .then((res) => {
       taskListData.value = res.data;
     })
     .catch((error) => onError("获取管理器信息失败", error));
 };
 
+const addTask = () => {
+  addTaskVisible.value = true
+}
 </script>
 
 <style scoped>
