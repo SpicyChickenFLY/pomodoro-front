@@ -7,3 +7,7 @@ export const getTaskList = () => {
 export const createTask = (task: any[]) => {
   return axios.post("/api/tasks", task);
 };
+
+export const startFocus = (task: any) => {
+  return axios.post("/api/pomodoro/");
+};

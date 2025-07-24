@@ -20,7 +20,7 @@
       </el-table-column>
       <el-table-column>
         <template #default="{ row }">
-          <el-button>开始专注</el-button>
+          <el-button @click="startFocus(row.id)">开始专注</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -54,19 +54,14 @@ import {
   ref,
   reactive,
   onMounted,
-  onBeforeMount,
-  onBeforeUnmount,
-  computed,
 } from "vue";
-import axios from "axios";
-import moment from "moment";
 import { ElNotification, ElLoading, ElMessageBox } from "element-plus";
 import { Star } from "@element-plus/icons-vue";
+import { getTaskList } from "@/api/tasks.ts";
 
 const timer = reactive(null);
 
 const taskListData = ref([]);
-const num = ref();
 
 onMounted(async () => {
   refresh();
@@ -86,13 +81,16 @@ const onError = async (msg, error) => {
 const refresh = async () => getTaskInfo();
 
 const getTaskInfo = async () => {
-  axios
-    .get("/api/tasks")
+  getTaskList()
     .then((res) => {
       taskListData.value = res.data;
     })
     .catch((error) => onError("获取管理器信息失败", error));
 };
+
+const startFocus = () => {
+  addTaskVisible.value = true
+}
 
 </script>
 
